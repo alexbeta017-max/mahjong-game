@@ -1,0 +1,656 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at center, #17613f 0%, #092d20 45%, #03140e 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+
+.machine {
+    width: min(1200px, 96vw);
+    padding: 18px;
+    border-radius: 28px;
+
+    background:
+        linear-gradient(145deg, #7b170e, #3d0905 50%, #7b170e);
+
+    border: 6px solid #d9a52e;
+
+    box-shadow:
+        0 0 0 5px #542009,
+        0 25px 70px rgba(0,0,0,.7),
+        inset 0 0 30px rgba(255,215,100,.15);
+}
+
+/* HEADER */
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 14px;
+}
+
+.logo {
+    font-size: clamp(20px, 3vw, 34px);
+    font-weight: 900;
+    color: #ffd84a;
+
+    text-shadow:
+        0 2px 0 #6b2500,
+        0 0 15px rgba(255,205,50,.7);
+}
+
+.multipliers {
+    display: flex;
+    gap: 5px;
+}
+
+.multipliers span {
+    min-width: 45px;
+    padding: 8px 5px;
+    text-align: center;
+
+    border-radius: 8px;
+    border: 2px solid #a87313;
+
+    background: linear-gradient(#4b3010, #1e1408);
+    color: #ffd94d;
+
+    font-weight: bold;
+}
+
+.multipliers .max-x {
+    color: #fff;
+    background: linear-gradient(#b36b09, #542b00);
+}
+
+/* INFO */
+
+.info-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.info-bar div {
+    padding: 8px;
+    border-radius: 8px;
+    text-align: center;
+
+    background: rgba(20, 8, 3, .75);
+    border: 2px solid #9d6b17;
+
+    font-size: 11px;
+    color: #e6c777;
+}
+
+.info-bar strong {
+    display: block;
+    color: white;
+    font-size: 16px;
+    margin-top: 3px;
+}
+
+/* FREE SPIN */
+
+.free-spin-box {
+    display: none;
+
+    margin: 8px auto 12px;
+    width: 250px;
+
+    padding: 10px;
+
+    text-align: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(135deg, #d79a16, #7a4000);
+
+    border: 3px solid #ffe27a;
+
+    box-shadow:
+        0 0 25px rgba(255,210,50,.8);
+
+    animation: freePulse .8s infinite alternate;
+}
+
+.free-spin-box.active {
+    display: block;
+}
+
+.free-spin-box div {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.free-spin-box strong {
+    font-size: 30px;
+    color: white;
+}
+
+@keyframes freePulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.04);
+    }
+}
+
+/* SLOT */
+
+.slot-area {
+    position: relative;
+
+    padding: 15px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(135deg, #301008, #120603);
+
+    border: 5px solid #c28b20;
+
+    box-shadow:
+        inset 0 0 30px rgba(0,0,0,.9),
+        0 10px 25px rgba(0,0,0,.5);
+}
+
+/* REELS */
+
+.reels {
+    --tile-height: 82px;
+
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+
+    gap: 6px;
+
+    height: calc(var(--tile-height) * 4);
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #160a05;
+
+    border: 4px solid #5e3a10;
+
+    box-shadow:
+        inset 0 0 25px black;
+}
+
+.reel {
+    height: 100%;
+    overflow: hidden;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.35),
+            transparent 35%,
+            transparent 65%,
+            rgba(0,0,0,.35)
+        );
+
+    border-right: 2px solid rgba(210,160,50,.35);
+}
+
+.track {
+    width: 100%;
+    will-change: transform;
+}
+
+.tile {
+    height: var(--tile-height);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px;
+}
+
+.tile-inner {
+    width: 92%;
+    height: 88%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffbe4 0%,
+            #eee3bb 45%,
+            #c8b87f 100%
+        );
+
+    border: 3px solid #806a31;
+
+    box-shadow:
+        0 5px 0 #5b4217,
+        0 7px 8px rgba(0,0,0,.55),
+        inset 0 2px 4px white;
+
+    transform:
+        perspective(500px)
+        rotateX(2deg);
+}
+
+/* SYMBOLS */
+
+.symbol {
+    font-size: clamp(28px, 4vw, 44px);
+
+    font-weight: 900;
+
+    text-shadow:
+        1px 2px 0 rgba(0,0,0,.25);
+}
+
+.symbol.red {
+    color: #c71f1f;
+}
+
+.symbol.green {
+    color: #0b7c45;
+}
+
+.symbol.blue {
+    color: #1469aa;
+}
+
+.symbol.gold {
+    color: #d48b00;
+}
+
+/* GOLD DRAGON SCATTER */
+
+.tile.scatter .tile-inner {
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #fff6a0,
+            #f1b800 35%,
+            #9a4d00 75%,
+            #522000
+        );
+
+    border: 3px solid #ffe78a;
+
+    box-shadow:
+        0 0 15px #ffd000,
+        0 5px 0 #542500,
+        inset 0 2px 5px #fff;
+}
+
+.dragon-head {
+    position: relative;
+
+    width: 53px;
+    height: 53px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #fff6a5 0%,
+            #ffd11c 35%,
+            #d77a00 70%,
+            #7a3500 100%
+        );
+
+    color: #7a2500;
+
+    font-size: 35px;
+
+    border: 3px solid #fff1a0;
+
+    box-shadow:
+        0 0 18px #ffd000,
+        inset 0 2px 5px white;
+}
+
+.dragon-head::before,
+.dragon-head::after {
+    content: "";
+    position: absolute;
+
+    width: 13px;
+    height: 19px;
+
+    top: -10px;
+
+    background: #f3b500;
+
+    border: 2px solid #8a4800;
+
+    border-radius: 80% 20% 60% 30%;
+}
+
+.dragon-head::before {
+    left: 4px;
+    transform: rotate(-25deg);
+}
+
+.dragon-head::after {
+    right: 4px;
+    transform: rotate(25deg);
+}
+
+/* WIN */
+
+.tile.win .tile-inner {
+    animation: winningTile .5s ease-in-out infinite alternate;
+
+    border-color: #ffe45c;
+
+    box-shadow:
+        0 0 20px #ffd900,
+        0 5px 0 #704900;
+}
+
+@keyframes winningTile {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.07);
+    }
+}
+
+.tile.breaking .tile-inner {
+    animation: breakTile .55s forwards;
+}
+
+@keyframes breakTile {
+
+    0% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+
+    35% {
+        opacity: 1;
+        transform: scale(1.15) rotate(-5deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(.25) rotate(25deg);
+    }
+}
+
+/* MESSAGE */
+
+.win-message {
+    min-height: 28px;
+
+    margin-top: 12px;
+
+    text-align: center;
+
+    font-weight: 900;
+
+    color: #ffd84c;
+
+    font-size: 18px;
+
+    text-shadow:
+        0 0 10px rgba(255,210,50,.8);
+}
+
+.win-amount {
+    min-height: 30px;
+
+    text-align: center;
+
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: 900;
+}
+
+/* CONTROLS */
+
+.controls {
+    margin-top: 14px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1.4fr 1fr;
+
+    gap: 10px;
+
+    align-items: center;
+}
+
+.bet-controls,
+.other-controls {
+    display: flex;
+    gap: 5px;
+}
+
+button {
+    border: none;
+
+    cursor: pointer;
+
+    color: white;
+
+    font-weight: 900;
+
+    padding: 12px 10px;
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(#8d2a1b, #4a0d08);
+
+    border: 2px solid #c48b25;
+
+    box-shadow:
+        0 4px 0 #260804,
+        inset 0 1px 2px rgba(255,255,255,.25);
+
+    transition: .1s;
+}
+
+button:hover {
+    filter: brightness(1.25);
+}
+
+button:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #260804;
+}
+
+.spin-button {
+    height: 65px;
+
+    font-size: 28px;
+
+    border-radius: 15px;
+
+    background:
+        radial-gradient(circle at 50% 20%,
+            #ffef8a,
+            #e49b0c 40%,
+            #8a3900 100%);
+
+    color: #451500;
+
+    border: 4px solid #ffe078;
+
+    box-shadow:
+        0 6px 0 #552000,
+        0 0 20px rgba(255,200,50,.5);
+}
+
+.spin-button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+#autoButton.active {
+    background:
+        linear-gradient(#d9a217, #704300);
+}
+
+/* BOTTOM */
+
+.bottom-info {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 12px;
+
+    padding: 8px;
+
+    border-radius: 8px;
+
+    background: rgba(0,0,0,.45);
+
+    color: #d9bd6b;
+
+    font-size: 11px;
+}
+
+/* JACKPOT */
+
+.jackpot-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0,.78);
+
+    animation: jackpotFade .3s;
+}
+
+.jackpot-box {
+    text-align: center;
+
+    padding: 40px;
+
+    border-radius: 25px;
+
+    border: 6px solid #ffd83d;
+
+    background:
+        radial-gradient(circle, #a34e00, #3d0b02);
+
+    box-shadow:
+        0 0 80px #ffcf00;
+
+    animation: jackpotPop .7s ease-out;
+}
+
+.jackpot-title {
+    font-size: clamp(45px, 8vw, 90px);
+
+    color: #ffe44e;
+
+    font-weight: 1000;
+
+    text-shadow:
+        0 0 20px #ff9800,
+        0 5px 0 #762000;
+}
+
+.jackpot-value {
+    margin-top: 15px;
+
+    font-size: clamp(30px, 5vw, 60px);
+
+    font-weight: 900;
+
+    color: white;
+}
+
+@keyframes jackpotPop {
+    from {
+        transform: scale(.2) rotate(-5deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+@keyframes jackpotFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 800px) {
+
+    .machine {
+        padding: 10px;
+    }
+
+    .top {
+        flex-direction: column;
+    }
+
+    .multipliers span {
+        min-width: 38px;
+        font-size: 12px;
+    }
+
+    .controls {
+        grid-template-columns: 1fr;
+    }
+
+    .bet-controls,
+    .other-controls {
+        justify-content: center;
+    }
+
+    .bottom-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 4px;
+    }
+
+    .reels {
+        --tile-height: 70px;
+    }
+}

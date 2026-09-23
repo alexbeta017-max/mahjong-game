@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahjong Fortune</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="machine">
+
+    <header class="top">
+        <div class="logo">🀄 MAHJONG FORTUNE</div>
+
+        <div class="multipliers">
+            <span>x1</span>
+            <span>x2</span>
+            <span>x3</span>
+            <span>x5</span>
+            <span class="max-x">x10</span>
+        </div>
+    </header>
+
+    <div class="info-bar">
+        <div>
+            SALDO
+            <strong id="saldo">Rp100.000</strong>
+        </div>
+
+        <div>
+            TARUHAN
+            <strong id="bet">Rp400</strong>
+        </div>
+
+        <div>
+            PENGALI
+            <strong id="multiplier">x1</strong>
+        </div>
+    </div>
+
+    <div class="free-spin-box" id="freeSpinBox">
+        <div>🔥 FREE SPIN</div>
+        <strong id="freeSpinCount">20</strong>
+    </div>
+
+    <main class="slot-area">
+
+        <div class="reels" id="reels"></div>
+
+        <div class="win-message" id="winMessage">
+            SIAP BERMAIN
+        </div>
+
+        <div class="win-amount" id="winAmount">
+            Rp0
+        </div>
+
+    </main>
+
+    <div class="controls">
+
+        <div class="bet-controls">
+            <button id="betMinus">BET −</button>
+            <button id="betMax">MAX</button>
+            <button id="betPlus">BET +</button>
+        </div>
+
+        <button class="spin-button" id="spinButton">
+            SPIN
+        </button>
+
+        <div class="other-controls">
+            <button id="autoButton">AUTO</button>
+            <button id="addMoney">+10K</button>
+            <button id="resetButton">RESET</button>
+            <button id="soundButton">🔊</button>
+        </div>
+
+    </div>
+
+    <div class="bottom-info">
+        <span>6 × 4</span>
+        <span>SCATTER = 3 GOLD DRAGON</span>
+        <span>20 FREE SPIN</span>
+    </div>
+
+</div>
+
+<script src="game.js"></script>
+
+</body>
+</html>
