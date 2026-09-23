@@ -1,656 +1,738 @@
+/* =========================================================
+   MAHJONG FORTUNE
+   DESAIN BARU - REFERENSI KAYU / MERAH / EMAS
+   LOGIC GAME TIDAK DIUBAH
+   ========================================================= */
+
 * {
     box-sizing: border-box;
+}
+
+html,
+body {
     margin: 0;
     padding: 0;
+    min-height: 100%;
 }
 
 body {
-    min-height: 100vh;
-    background:
-        radial-gradient(circle at center, #17613f 0%, #092d20 45%, #03140e 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 50% 20%, #164a30 0%, #08251d 45%, #03130f 100%);
     color: white;
-    overflow-x: hidden;
 }
+
+/* =========================================================
+   MESIN UTAMA
+   ========================================================= */
 
 .machine {
-    width: min(1200px, 96vw);
-    padding: 18px;
-    border-radius: 28px;
+    width: min(1180px, calc(100% - 24px));
+    margin: 18px auto;
+
+    padding: 16px;
 
     background:
-        linear-gradient(145deg, #7b170e, #3d0905 50%, #7b170e);
+        linear-gradient(
+            180deg,
+            #a63213 0%,
+            #711807 18%,
+            #4a0d05 55%,
+            #701606 100%
+        );
 
-    border: 6px solid #d9a52e;
+    border: 6px solid #c98b20;
+    border-radius: 26px;
 
     box-shadow:
-        0 0 0 5px #542009,
-        0 25px 70px rgba(0,0,0,.7),
-        inset 0 0 30px rgba(255,215,100,.15);
+        0 0 0 4px #4b1c08,
+        inset 0 0 0 2px #f0bd43,
+        inset 0 0 35px rgba(0, 0, 0, .7),
+        0 12px 30px rgba(0, 0, 0, .7);
 }
 
-/* HEADER */
+/* =========================================================
+   HEADER MERAH / KAYU
+   ========================================================= */
 
 .top {
+    position: relative;
+
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 14px;
+    flex-direction: column;
+    align-items: stretch;
+
+    margin-bottom: 12px;
 }
 
+/* Judul */
 .logo {
-    font-size: clamp(20px, 3vw, 34px);
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #c84820 0%,
+            #a52b10 45%,
+            #7a1809 100%
+        );
+
+    border: 5px solid #8d4612;
+    border-radius: 18px;
+
+    color: #ffd63d;
+
+    font-family: Georgia, serif;
+    font-size: clamp(27px, 4vw, 48px);
     font-weight: 900;
-    color: #ffd84a;
 
     text-shadow:
-        0 2px 0 #6b2500,
-        0 0 15px rgba(255,205,50,.7);
+        3px 4px 3px #541000,
+        0 0 5px rgba(255, 200, 30, .4);
+
+    box-shadow:
+        inset 0 4px 0 rgba(255, 190, 80, .3),
+        inset 0 -10px 15px rgba(60, 10, 0, .45),
+        0 5px 8px rgba(0, 0, 0, .5);
 }
 
+/* =========================================================
+   MULTIPLIER
+   ========================================================= */
+
 .multipliers {
-    display: flex;
-    gap: 5px;
+    width: 100%;
+
+    min-height: 88px;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+
+    align-items: center;
+
+    margin-top: -2px;
+    padding: 5px 22px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #d58b28 0%,
+            #a95d18 25%,
+            #7c390e 55%,
+            #9c4f13 80%,
+            #602308 100%
+        );
+
+    border: 5px solid #81400e;
+    border-radius: 0 0 16px 16px;
+
+    box-shadow:
+        inset 0 3px 0 rgba(255, 220, 100, .4),
+        inset 0 -8px 12px rgba(50, 10, 0, .55),
+        0 5px 8px rgba(0, 0, 0, .55);
 }
 
 .multipliers span {
-    min-width: 45px;
-    padding: 8px 5px;
-    text-align: center;
+    height: 65px;
 
-    border-radius: 8px;
-    border: 2px solid #a87313;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    background: linear-gradient(#4b3010, #1e1408);
-    color: #ffd94d;
+    color: #ffd52f;
 
-    font-weight: bold;
+    font-family: Georgia, serif;
+    font-size: clamp(25px, 4vw, 43px);
+    font-weight: 900;
+    font-style: italic;
+
+    text-shadow:
+        3px 4px 2px #5a1905,
+        0 0 8px rgba(255, 200, 30, .35);
+
+    border-left: 2px solid rgba(70, 25, 5, .35);
+}
+
+.multipliers span:first-child {
+    border-left: 0;
 }
 
 .multipliers .max-x {
-    color: #fff;
-    background: linear-gradient(#b36b09, #542b00);
+    color: #ffe75c;
 }
 
-/* INFO */
-
-.info-bar {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 10px;
-}
-
-.info-bar div {
-    padding: 8px;
-    border-radius: 8px;
-    text-align: center;
-
-    background: rgba(20, 8, 3, .75);
-    border: 2px solid #9d6b17;
-
-    font-size: 11px;
-    color: #e6c777;
-}
-
-.info-bar strong {
-    display: block;
-    color: white;
-    font-size: 16px;
-    margin-top: 3px;
-}
-
-/* FREE SPIN */
-
-.free-spin-box {
-    display: none;
-
-    margin: 8px auto 12px;
-    width: 250px;
-
-    padding: 10px;
-
-    text-align: center;
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(135deg, #d79a16, #7a4000);
-
-    border: 3px solid #ffe27a;
-
-    box-shadow:
-        0 0 25px rgba(255,210,50,.8);
-
-    animation: freePulse .8s infinite alternate;
-}
-
-.free-spin-box.active {
-    display: block;
-}
-
-.free-spin-box div {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.free-spin-box strong {
-    font-size: 30px;
-    color: white;
-}
-
-@keyframes freePulse {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.04);
-    }
-}
-
-/* SLOT */
+/* =========================================================
+   AREA SLOT
+   ========================================================= */
 
 .slot-area {
     position: relative;
 
-    padding: 15px;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(135deg, #301008, #120603);
-
-    border: 5px solid #c28b20;
-
-    box-shadow:
-        inset 0 0 30px rgba(0,0,0,.9),
-        0 10px 25px rgba(0,0,0,.5);
-}
-
-/* REELS */
-
-.reels {
-    --tile-height: 82px;
-
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-
-    gap: 6px;
-
-    height: calc(var(--tile-height) * 4);
-
-    overflow: hidden;
-
-    border-radius: 12px;
-
-    background: #160a05;
-
-    border: 4px solid #5e3a10;
-
-    box-shadow:
-        inset 0 0 25px black;
-}
-
-.reel {
-    height: 100%;
-    overflow: hidden;
-
-    position: relative;
+    padding: 14px;
 
     background:
         linear-gradient(
             90deg,
-            rgba(0,0,0,.35),
-            transparent 35%,
-            transparent 65%,
-            rgba(0,0,0,.35)
+            #5d260b,
+            #8d4713 8%,
+            #632709 50%,
+            #8d4713 92%,
+            #5d260b
         );
 
-    border-right: 2px solid rgba(210,160,50,.35);
+    border: 6px solid #b8791b;
+    border-radius: 22px;
+
+    box-shadow:
+        inset 0 0 0 3px #542006,
+        inset 0 0 20px rgba(0, 0, 0, .7),
+        0 6px 12px rgba(0, 0, 0, .6);
 }
+
+/* =========================================================
+   PAPAN MAHJONG 6 x 4
+   ========================================================= */
+
+.reels {
+    width: 100%;
+    height: 500px;
+
+    display: grid;
+
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
+
+    gap: 0;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #18832f,
+            #087126 65%,
+            #07571d
+        );
+
+    border: 10px solid #71390b;
+    border-radius: 17px;
+
+    box-shadow:
+        inset 0 0 0 3px #c28b22,
+        inset 0 0 0 7px #3e1b06,
+        inset 0 0 25px rgba(0, 0, 0, .65),
+        0 5px 8px rgba(0, 0, 0, .7);
+}
+
+/* =========================================================
+   REEL
+   ========================================================= */
+
+.reel {
+    width: 100%;
+    height: 100%;
+
+    min-height: 0;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   TRACK
+   ========================================================= */
 
 .track {
     width: 100%;
-    will-change: transform;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 0;
+
+    margin: 0;
+    padding: 0;
 }
+
+/* =========================================================
+   TILE
+   ========================================================= */
 
 .tile {
-    height: var(--tile-height);
+    position: relative;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    height: 25%;
+    min-height: 0;
 
-    padding: 5px;
+    flex: 0 0 25%;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffef0 0%,
+            #f0edd3 48%,
+            #ded9b8 100%
+        );
+
+    border: 2px solid #967321;
+    border-radius: 10px;
+
+    box-shadow:
+        inset 0 0 9px rgba(120, 100, 40, .45),
+        0 2px 2px rgba(0, 0, 0, .55);
 }
 
+/* =========================================================
+   TILE INNER
+   ========================================================= */
+
 .tile-inner {
-    width: 92%;
-    height: 88%;
+    width: 100%;
+    height: 100%;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   SIMBOL
+   ========================================================= */
+
+.tile .symbol {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    margin: 0;
+    padding: 0;
+
+    object-fit: contain;
+
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* =========================================================
+   MENANG
+   ========================================================= */
+
+.tile.win {
+    border-color: #ffd329;
+
+    box-shadow:
+        0 0 16px #ffd000,
+        inset 0 0 18px rgba(255, 215, 0, .7);
+}
+
+.tile.breaking {
+    animation: tileBreak .35s ease forwards;
+}
+
+@keyframes tileBreak {
+
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    55% {
+        transform: scale(1.08);
+        opacity: .8;
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* =========================================================
+   WIN MESSAGE
+   ========================================================= */
+
+.win-message {
+    min-height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 8px;
+
+    color: #ffd42e;
+
+    font-size: 20px;
+    font-weight: 900;
+
+    text-align: center;
+
+    text-shadow:
+        2px 3px 2px #4b1300;
+}
+
+.win-amount {
+    min-height: 35px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    font-size: 25px;
+    font-weight: 900;
+}
+
+/* =========================================================
+   INFO SALDO / BET / PENGALI
+   ========================================================= */
+
+.info-bar {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 8px;
+}
+
+.info-bar > div {
+    min-height: 65px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 10px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #5c2109,
+            #2b0a04
+        );
+
+    border: 3px solid #bd7d16;
+    border-radius: 10px;
+
+    color: #ffd531;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    text-align: center;
+
+    box-shadow:
+        inset 0 0 8px rgba(0, 0, 0, .65),
+        0 3px 5px rgba(0, 0, 0, .5);
+}
+
+.info-bar strong {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #fff;
+
+    font-size: 19px;
+}
+
+/* =========================================================
+   FREE SPIN
+   ========================================================= */
+
+.free-spin-box {
+    display: none;
+
+    margin-top: 10px;
+    padding: 10px;
+
+    text-align: center;
+
+    background: linear-gradient(#a94b0d, #4c1004);
+
+    border: 3px solid #ffd12f;
+    border-radius: 10px;
+
+    color: #ffe13d;
+
+    box-shadow:
+        0 0 12px rgba(255, 200, 0, .6);
+}
+
+.free-spin-box strong {
+    font-size: 25px;
+}
+
+/* =========================================================
+   CONTROLS
+   ========================================================= */
+
+.controls {
+    display: grid;
+
+    grid-template-columns: auto 1fr auto;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 12px;
+}
+
+/* =========================================================
+   TOMBOL
+   ========================================================= */
+
+.controls button {
+    min-height: 56px;
+
+    padding: 8px 15px;
+
+    border: 3px solid #c98b1c;
     border-radius: 10px;
 
     background:
         linear-gradient(
-            145deg,
-            #fffbe4 0%,
-            #eee3bb 45%,
-            #c8b87f 100%
+            180deg,
+            #8d3410,
+            #4c1005
         );
-
-    border: 3px solid #806a31;
-
-    box-shadow:
-        0 5px 0 #5b4217,
-        0 7px 8px rgba(0,0,0,.55),
-        inset 0 2px 4px white;
-
-    transform:
-        perspective(500px)
-        rotateX(2deg);
-}
-
-/* SYMBOLS */
-
-.symbol {
-    font-size: clamp(28px, 4vw, 44px);
-
-    font-weight: 900;
-
-    text-shadow:
-        1px 2px 0 rgba(0,0,0,.25);
-}
-
-.symbol.red {
-    color: #c71f1f;
-}
-
-.symbol.green {
-    color: #0b7c45;
-}
-
-.symbol.blue {
-    color: #1469aa;
-}
-
-.symbol.gold {
-    color: #d48b00;
-}
-
-/* GOLD DRAGON SCATTER */
-
-.tile.scatter .tile-inner {
-    background:
-        radial-gradient(
-            circle at 50% 40%,
-            #fff6a0,
-            #f1b800 35%,
-            #9a4d00 75%,
-            #522000
-        );
-
-    border: 3px solid #ffe78a;
-
-    box-shadow:
-        0 0 15px #ffd000,
-        0 5px 0 #542500,
-        inset 0 2px 5px #fff;
-}
-
-.dragon-head {
-    position: relative;
-
-    width: 53px;
-    height: 53px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #fff6a5 0%,
-            #ffd11c 35%,
-            #d77a00 70%,
-            #7a3500 100%
-        );
-
-    color: #7a2500;
-
-    font-size: 35px;
-
-    border: 3px solid #fff1a0;
-
-    box-shadow:
-        0 0 18px #ffd000,
-        inset 0 2px 5px white;
-}
-
-.dragon-head::before,
-.dragon-head::after {
-    content: "";
-    position: absolute;
-
-    width: 13px;
-    height: 19px;
-
-    top: -10px;
-
-    background: #f3b500;
-
-    border: 2px solid #8a4800;
-
-    border-radius: 80% 20% 60% 30%;
-}
-
-.dragon-head::before {
-    left: 4px;
-    transform: rotate(-25deg);
-}
-
-.dragon-head::after {
-    right: 4px;
-    transform: rotate(25deg);
-}
-
-/* WIN */
-
-.tile.win .tile-inner {
-    animation: winningTile .5s ease-in-out infinite alternate;
-
-    border-color: #ffe45c;
-
-    box-shadow:
-        0 0 20px #ffd900,
-        0 5px 0 #704900;
-}
-
-@keyframes winningTile {
-    from {
-        transform: scale(1);
-    }
-
-    to {
-        transform: scale(1.07);
-    }
-}
-
-.tile.breaking .tile-inner {
-    animation: breakTile .55s forwards;
-}
-
-@keyframes breakTile {
-
-    0% {
-        opacity: 1;
-        transform: scale(1) rotate(0);
-    }
-
-    35% {
-        opacity: 1;
-        transform: scale(1.15) rotate(-5deg);
-    }
-
-    100% {
-        opacity: 0;
-        transform: scale(.25) rotate(25deg);
-    }
-}
-
-/* MESSAGE */
-
-.win-message {
-    min-height: 28px;
-
-    margin-top: 12px;
-
-    text-align: center;
-
-    font-weight: 900;
-
-    color: #ffd84c;
-
-    font-size: 18px;
-
-    text-shadow:
-        0 0 10px rgba(255,210,50,.8);
-}
-
-.win-amount {
-    min-height: 30px;
-
-    text-align: center;
 
     color: white;
 
-    font-size: 24px;
-
+    font-size: 15px;
     font-weight: 900;
-}
 
-/* CONTROLS */
-
-.controls {
-    margin-top: 14px;
-
-    display: grid;
-
-    grid-template-columns: 1fr 1.4fr 1fr;
-
-    gap: 10px;
-
-    align-items: center;
-}
-
-.bet-controls,
-.other-controls {
-    display: flex;
-    gap: 5px;
-}
-
-button {
-    border: none;
+    box-shadow:
+        inset 0 0 7px rgba(0, 0, 0, .6),
+        0 3px 5px rgba(0, 0, 0, .6);
 
     cursor: pointer;
+}
 
-    color: white;
+.controls button:active {
+    transform: translateY(2px);
+}
 
-    font-weight: 900;
+/* =========================================================
+   BET CONTROLS
+   ========================================================= */
 
-    padding: 12px 10px;
+.bet-controls {
+    display: grid;
 
-    border-radius: 9px;
+    grid-template-columns: repeat(3, auto);
 
+    gap: 6px;
+}
+
+#betMax {
     background:
-        linear-gradient(#8d2a1b, #4a0d08);
-
-    border: 2px solid #c48b25;
-
-    box-shadow:
-        0 4px 0 #260804,
-        inset 0 1px 2px rgba(255,255,255,.25);
-
-    transition: .1s;
+        linear-gradient(
+            180deg,
+            #27a746,
+            #075b1e
+        );
 }
 
-button:hover {
-    filter: brightness(1.25);
-}
-
-button:active {
-    transform: translateY(3px);
-    box-shadow: 0 1px 0 #260804;
-}
+/* =========================================================
+   SPIN
+   ========================================================= */
 
 .spin-button {
-    height: 65px;
+    width: 100%;
 
-    font-size: 28px;
+    min-height: 78px !important;
 
-    border-radius: 15px;
+    border: 4px solid #ffe04b !important;
+    border-radius: 16px !important;
 
     background:
-        radial-gradient(circle at 50% 20%,
-            #ffef8a,
-            #e49b0c 40%,
-            #8a3900 100%);
+        linear-gradient(
+            90deg,
+            #e77700,
+            #ffe54b,
+            #e77700
+        ) !important;
 
-    color: #451500;
+    color: #571500 !important;
 
-    border: 4px solid #ffe078;
+    font-family: Georgia, serif;
+    font-size: 32px !important;
+    font-weight: 900 !important;
 
     box-shadow:
-        0 6px 0 #552000,
-        0 0 20px rgba(255,200,50,.5);
+        0 0 15px rgba(255, 210, 0, .75),
+        inset 0 3px 4px rgba(255,255,255,.5) !important;
 }
 
-.spin-button:disabled {
-    opacity: .5;
-    cursor: not-allowed;
+/* =========================================================
+   OTHER CONTROLS
+   ========================================================= */
+
+.other-controls {
+    display: grid;
+
+    grid-template-columns: repeat(4, auto);
+
+    gap: 6px;
 }
 
-#autoButton.active {
+#autoButton {
     background:
-        linear-gradient(#d9a217, #704300);
+        linear-gradient(#9b3910, #4d1005);
 }
 
-/* BOTTOM */
+/* =========================================================
+   BOTTOM INFO
+   ========================================================= */
 
 .bottom-info {
     display: flex;
+
     justify-content: space-between;
-
-    margin-top: 12px;
-
-    padding: 8px;
-
-    border-radius: 8px;
-
-    background: rgba(0,0,0,.45);
-
-    color: #d9bd6b;
-
-    font-size: 11px;
-}
-
-/* JACKPOT */
-
-.jackpot-overlay {
-    position: fixed;
-    inset: 0;
-
-    z-index: 1000;
-
-    display: flex;
     align-items: center;
-    justify-content: center;
 
-    background: rgba(0,0,0,.78);
+    margin-top: 10px;
 
-    animation: jackpotFade .3s;
+    color: #f5cd3a;
+
+    font-size: 12px;
 }
 
-.jackpot-box {
-    text-align: center;
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
-    padding: 40px;
-
-    border-radius: 25px;
-
-    border: 6px solid #ffd83d;
-
-    background:
-        radial-gradient(circle, #a34e00, #3d0b02);
-
-    box-shadow:
-        0 0 80px #ffcf00;
-
-    animation: jackpotPop .7s ease-out;
-}
-
-.jackpot-title {
-    font-size: clamp(45px, 8vw, 90px);
-
-    color: #ffe44e;
-
-    font-weight: 1000;
-
-    text-shadow:
-        0 0 20px #ff9800,
-        0 5px 0 #762000;
-}
-
-.jackpot-value {
-    margin-top: 15px;
-
-    font-size: clamp(30px, 5vw, 60px);
-
-    font-weight: 900;
-
-    color: white;
-}
-
-@keyframes jackpotPop {
-    from {
-        transform: scale(.2) rotate(-5deg);
-        opacity: 0;
-    }
-
-    to {
-        transform: scale(1) rotate(0);
-        opacity: 1;
-    }
-}
-
-@keyframes jackpotFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* RESPONSIVE */
-
-@media(max-width: 800px) {
+@media (max-width: 900px) {
 
     .machine {
+        width: calc(100% - 10px);
+        margin: 8px auto;
         padding: 10px;
     }
 
-    .top {
-        flex-direction: column;
+    .logo {
+        font-size: 30px;
     }
 
-    .multipliers span {
-        min-width: 38px;
-        font-size: 12px;
+    .reels {
+        height: 450px;
     }
 
     .controls {
         grid-template-columns: 1fr;
     }
 
+    .spin-button {
+        order: -1;
+    }
+
     .bet-controls,
     .other-controls {
         justify-content: center;
     }
+}
 
-    .bottom-info {
-        flex-direction: column;
-        text-align: center;
-        gap: 4px;
+@media (max-width: 600px) {
+
+    body {
+        background: #071b16;
+    }
+
+    .machine {
+        width: 100%;
+        margin: 0;
+        padding: 7px;
+
+        border-width: 3px;
+        border-radius: 15px;
+    }
+
+    .logo {
+        min-height: 52px;
+        font-size: 22px;
+        border-width: 3px;
+    }
+
+    .multipliers {
+        min-height: 62px;
+        padding: 3px 7px;
+    }
+
+    .multipliers span {
+        height: 48px;
+        font-size: 22px;
+    }
+
+    .slot-area {
+        padding: 7px;
+        border-width: 3px;
+        border-radius: 15px;
     }
 
     .reels {
-        --tile-height: 70px;
+        height: 330px;
+        border-width: 6px;
+        border-radius: 10px;
+    }
+
+    .tile {
+        border-width: 1px;
+        border-radius: 6px;
+    }
+
+    .info-bar {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .info-bar > div:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .controls {
+        gap: 7px;
+    }
+
+    .bet-controls {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .other-controls {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bottom-info {
+        flex-direction: column;
+        gap: 4px;
     }
 }
